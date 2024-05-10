@@ -22,7 +22,7 @@ const seedDatabase = require("./seed_database")
 const storage = multer.memoryStorage()
 const upload = multer({ storage })
 
-const baseUrl = "https://ayo-ayo.onrender.com/api/v1";
+const baseUrl = "/api/v1";
 
 
 app.use(express.json());

@@ -4,8 +4,8 @@ const BadRequestError = require("../utils/badRequestError");
 class AuthController {
     async register(req, res) {
         const { username, email, password } = req.body;
-        console.log(username, email, password)
         if (username && email && password) {
+            password = String(password);
             const user = await authService.register({ username, email, password });
             res.status(201).json({ data: user });
         } else {
@@ -15,8 +15,8 @@ class AuthController {
 
     async login(req, res) {
         const { email, password } = req.body;
-        console.log(`login details: `, email, password);
         if (email && password) {
+            password = String(password);
             const user = await authService.login({ email, password });
             res.status(200).json({ data: user });
         } else {
