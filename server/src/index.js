@@ -17,6 +17,7 @@ const errorHandler = require("./middlewares/errorHandler");
 const authController = require("./controllers/auth.controller")
 const leaderBoard = require("./models/leaderboard")
 const seedDatabase = require("./seed_database")
+const cors = require("cors");
 
 //file upload
 const storage = multer.memoryStorage()
@@ -24,7 +25,7 @@ const upload = multer({ storage })
 
 const baseUrl = "/api/v1";
 
-
+app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
