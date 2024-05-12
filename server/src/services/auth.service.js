@@ -15,7 +15,7 @@ class Auth {
     async login({ email, password }) {
         const user = await this.#User.findOne({ email });
         if (!user) throw new UnathenticatedError("invalid email or password.");
-        const isPasswordValid = user.isPasswordCorrect(password);
+        const isPasswordValid = await user.isPasswordCorrect(password);
         if (!isPasswordValid) throw new UnathenticatedError("invalid email or password.");
         const token = createToken(user);
         user.password = "";

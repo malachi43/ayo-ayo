@@ -24,7 +24,7 @@ const userSchema = new Schema({
 }, opts)
 
 userSchema.methods.isPasswordCorrect = async function (candidatePassword) {
-    return await compare(this.password, candidatePassword);
+    return await compare(candidatePassword, this.password);
 }
 
 userSchema.pre("save", async function () {
