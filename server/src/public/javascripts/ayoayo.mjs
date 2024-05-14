@@ -1,7 +1,6 @@
-const { EventEmitter } = require("node:events");
-const minimax = require("./minimax.service");
-
-class AyoAyo extends EventEmitter {
+import { EventEmitter } from "node:events";
+import minimax from "./minimax.mjs"
+export default class AyoAyo extends EventEmitter {
     static events = {
         GAME_OVER: "game_over",
         DROP_SEED: "drop_seed",
@@ -187,5 +186,3 @@ class AyoAyo extends EventEmitter {
         return game;
     }
 }
-
-module.exports = AyoAyo;

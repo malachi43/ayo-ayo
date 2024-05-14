@@ -1,5 +1,5 @@
 
-function minimax(game, depth, moves, maximizing) {
+export default function minimax(game, depth, moves, maximizing) {
     if (depth == 0 || game.winner != null) {
         return [game.captured[0] - game.captured[1], moves];
     }
@@ -35,5 +35,3 @@ function minimax(game, depth, moves, maximizing) {
         return [minScore, minMoves];
     }
 }
-
-module.exports = minimax;
