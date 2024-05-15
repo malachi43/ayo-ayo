@@ -21,7 +21,7 @@ const leaderboardSchema = new Schema({
         required: true,
     },
     rank: {
-        type: String,
+        type: Number,
         required: true
     },
     stars: {
@@ -36,5 +36,6 @@ const leaderboardSchema = new Schema({
 }, opts)
 
 leaderboardSchema.path("_id").get((v) => v.toString());
+leaderboardSchema.index({ rank: -1 });
 
-module.exports = model("leaderboard", leaderboardSchema);
+module.exports = model("leaderboard", leaderboardSchema);;
