@@ -22,15 +22,13 @@ const { join } = require("node:path");
 //file upload
 const storage = multer.memoryStorage()
 const upload = multer({ storage })
-const cloudinaryInit = require("./utils/cloudinaryInit")
-const { v2: cloudinary } = require("cloudinary");
-const AvatarList = require("./models/avatar");
-const convertToBase64 = require("./utils/toBase64");
-const avatar = new AvatarList();
-
+const cors = require("cors");
+const helmet = require("helmet");
 
 const baseUrl = "/api/v1";
 
+app.use(cors());
+app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -55,12 +53,7 @@ app.get(`${baseUrl}/leaderboard`, async (req, res) => {
     // const leaderboard = await leaderBoard.find()
     let leaderboard = leaderBoard.find().sort({ rank: -1 });
     leaderboard = await leaderboard;
-    console.log(leaderboard);
     res.status(200).json({ data: leaderboard, count: leaderboard.length })
-})
-app.get(`${baseUrl}/ayoayo`, (req, res) => {
-    res.writeHead(200, { "Content-Type": "application/json" });
-    res.sendFile(join(__dirname, "public", "javascripts", "ayoayo.js"));
 })
 
 app.use(notFound);
