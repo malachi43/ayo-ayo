@@ -36,6 +36,6 @@ const leaderboardSchema = new Schema({
 }, opts)
 
 leaderboardSchema.path("_id").get((v) => v.toString());
-leaderboardSchema.index({ rank: -1 });
+leaderboardSchema.index({ score: -1 });
 
 module.exports = model("leaderboard", leaderboardSchema);;

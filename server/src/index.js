@@ -25,6 +25,12 @@ const upload = multer({ storage })
 const cors = require("cors");
 const helmet = require("helmet");
 
+// const cloudinaryInit = require("./utils/cloudinaryInit");
+// const { v2: cloudinary } = require("cloudinary");
+// const AvatarList = require("./models/avatar")
+// const avatar = new AvatarList();
+// const convertToBase64 = require("./utils/toBase64");
+
 const baseUrl = "/api/v1";
 
 app.use(cors());
@@ -34,24 +40,26 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(express.static(join(__dirname, "public")));
 
-app.post(`${baseUrl}/uploads`, upload.single("avatar"), async (req, res) => {
-    // cloudinaryInit();
-    // const { mimetype, buffer } = req.file;
-    // const dataURI = convertToBase64(buffer, mimetype)
-    // const { secure_url } = await cloudinary.uploader.upload(dataURI, {
-    //     resource_type: "auto",
-    // });
-    // const clone = avatar.avatarList.slice();
-    // clone.push(secure_url);
-    // avatar.avatarList = clone;
-    // await avatar.save();
-    res.status(200).json({ success: true, data: req.file });
-})
+// app.post(`${baseUrl}/uploads`, upload.single("avatar"), async (req, res) => {
+//     cloudinaryInit();
+//     if (!req.file) throw new Error(`upload a file.`)
+//     const { mimetype, buffer } = req.file;
+//     const dataURI = convertToBase64(buffer, mimetype)
+//     const { secure_url } = await cloudinary.uploader.upload(dataURI, {
+//         resource_type: "auto",
+//     });
+//     const clone = avatar.avatarList.slice();
+//     clone.push(secure_url);
+//     avatar.avatarList = clone;
+//     await avatar.save();
+//     res.status(200).json({ success: true, data: avatar });
+// })
+
 app.post(`${baseUrl}/login`, authController.login);
 app.post(`${baseUrl}/register`, authController.register);
 app.get(`${baseUrl}/leaderboard`, async (req, res) => {
     // const leaderboard = await leaderBoard.find()
-    let leaderboard = leaderBoard.find().sort({ rank: -1 });
+    let leaderboard = leaderBoard.find().sort({ score: -1 });
     leaderboard = await leaderboard;
     res.status(200).json({ data: leaderboard, count: leaderboard.length })
 })
