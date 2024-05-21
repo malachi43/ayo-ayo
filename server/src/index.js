@@ -61,6 +61,11 @@ app.get(`${baseUrl}/leaderboard`, async (req, res) => {
     // const leaderboard = await leaderBoard.find()
     let leaderboard = leaderBoard.find().sort({ score: -1 });
     leaderboard = await leaderboard;
+    //make the rank to displayed in ascending order
+    leaderboard = leaderboard.map((data, index) => {
+        data.rank = index + 1;
+        return data;
+    })
     res.status(200).json({ data: leaderboard, count: leaderboard.length })
 })
 
