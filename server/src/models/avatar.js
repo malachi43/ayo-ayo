@@ -2,7 +2,7 @@ const { Schema, model } = require("mongoose");
 
 const avatarSchema = new Schema({
     avatarList: {
-        type: [String],
+        type: [{ avatar_url: String}],
         required: true,
         default: []
     }

@@ -16,7 +16,7 @@ const notFound = require("./middlewares/notFound");
 const errorHandler = require("./middlewares/errorHandler");
 const authController = require("./controllers/auth.controller")
 const leaderBoard = require("./models/leaderboard")
-const { seedLeaderboard, seedAvatars } = require("./seed_database")
+const { seedLeaderboard } = require("./seed_database")
 const Ayo = require("./controllers/ayoayo.controller");
 const { join } = require("node:path");
 //file upload
@@ -24,6 +24,7 @@ const storage = multer.memoryStorage()
 const upload = multer({ storage })
 const cors = require("cors");
 const helmet = require("helmet");
+const AvatarList = require("./models/avatar");
 
 // const cloudinaryInit = require("./utils/cloudinaryInit");
 // const { v2: cloudinary } = require("cloudinary");
@@ -55,6 +56,10 @@ app.use(express.static(join(__dirname, "public")));
 //     res.status(200).json({ success: true, data: avatar });
 // })
 
+app.get(`${baseUrl}/avatar-list`, async (req, res) => {
+    const avatars = await AvatarList.findOne();
+    res.status(200).json({ data: avatars.avatarList });
+})
 app.post(`${baseUrl}/login`, authController.login);
 app.post(`${baseUrl}/register`, authController.register);
 app.get(`${baseUrl}/leaderboard`, async (req, res) => {
@@ -76,7 +81,6 @@ const startApp = async () => {
     try {
         await connectToDatabase(process.env.MONGO_URI);
         console.log(`CONNECTED TO DATABASE.`)
-        await seedAvatars();
         const leaderboard_mock_data = await seedLeaderboard()
         await leaderBoard.deleteMany();
         await leaderBoard.insertMany(leaderboard_mock_data)

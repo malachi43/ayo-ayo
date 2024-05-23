@@ -23,6 +23,11 @@ class AuthController {
             throw new BadRequestError("email and passsword fields are required.")
         }
     }
+
+    async forgotPassword(req, res) {
+        const { email } = req.body
+
+    }
 }
 
 module.exports = new AuthController();

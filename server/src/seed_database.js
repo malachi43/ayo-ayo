@@ -1,7 +1,7 @@
 const mock_data = require("./seed.json");
 const mongoose = require("mongoose");
 const AvatarList = require("./models/avatar");
-const avatars = [
+let avatars = [
     "https://res.cloudinary.com/devgxsnc3/image/upload/v1715814010/re60rhe81xuhofzdn1cf.png",
     "https://res.cloudinary.com/devgxsnc3/image/upload/v1715814125/vhy2a1uiwvmwvyxnio5g.png",
     "https://res.cloudinary.com/devgxsnc3/image/upload/v1715814142/va8aqjvcbau5e5bo8q07.png",
@@ -30,6 +30,11 @@ async function seedAvatarCollection() {
     if (!avatarCollection) {
         avatarCollection = new AvatarList();
     }
+    avatars = avatars.map(avatar => {
+        return {
+            avatar_url: avatar
+        }
+    })
     avatarCollection.avatarList = avatars;
     await avatarCollection.save();
 }
