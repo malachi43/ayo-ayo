@@ -15,6 +15,7 @@ const connectToDatabase = require("./database/connect");
 const notFound = require("./middlewares/notFound");
 const errorHandler = require("./middlewares/errorHandler");
 const authController = require("./controllers/auth.controller")
+const avatarController = require("./controllers/avatar.controller");
 const leaderBoard = require("./models/leaderboard")
 const { seedLeaderboard } = require("./seed_database")
 const Ayo = require("./controllers/ayoayo.controller");
@@ -56,11 +57,10 @@ app.use(express.static(join(__dirname, "public")));
 //     res.status(200).json({ success: true, data: avatar });
 // })
 
-app.get(`${baseUrl}/avatar-list`, async (req, res) => {
-    const avatars = await AvatarList.findOne();
-    res.status(200).json({ data: avatars.avatarList });
-})
+app.get(`${baseUrl}/avatar-list`, avatarController.getAvatars)
+
 app.post(`${baseUrl}/login`, authController.login);
+
 app.post(`${baseUrl}/register`, authController.register);
 app.get(`${baseUrl}/leaderboard`, async (req, res) => {
     // const leaderboard = await leaderBoard.find()
@@ -73,6 +73,7 @@ app.get(`${baseUrl}/leaderboard`, async (req, res) => {
     })
     res.status(200).json({ data: leaderboard, count: leaderboard.length })
 })
+app.get(`${baseUrl}/avatars/:id`, avatarController.getAvatar)
 
 app.use(notFound);
 app.use(errorHandler);
