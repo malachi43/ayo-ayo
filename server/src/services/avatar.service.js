@@ -16,6 +16,7 @@ class AvatarService {
         const avatar_details = avatarList.find(data => data._id == id);
         return avatar_details
     }
+
 }
 
 module.exports = new AvatarService();

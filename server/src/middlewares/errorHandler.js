@@ -2,7 +2,7 @@
 
 const errorHandler = (err, req, res, next) => {
     const customObj = {
-        errorMsg: err.message || "INTERNAL SERVER ERROR.",
+        errorMsg: err.message|| "INTERNAL SERVER ERROR.",
         errorCode: err.statusCode || 500
     }
 

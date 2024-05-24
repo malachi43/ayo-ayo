@@ -1,5 +1,5 @@
 const avatarService = require("../services/avatar.service");
-
+const userService = require("../services/user.service");
 class AvatarController {
     async getAvatars(req, res) {
         const avatarList = await avatarService.getAvatarList()

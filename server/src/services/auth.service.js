@@ -25,7 +25,6 @@ class Auth {
     async forgotPassword(email) {
         const isUser = await this.#User.findOne({ email });
         if (!isUser) return { status: true, msg: `a password reset email has been sent to you.` }
-        
     }
 }
 

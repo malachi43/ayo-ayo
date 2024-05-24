@@ -16,6 +16,7 @@ const notFound = require("./middlewares/notFound");
 const errorHandler = require("./middlewares/errorHandler");
 const authController = require("./controllers/auth.controller")
 const avatarController = require("./controllers/avatar.controller");
+const userController = require("./controllers/user.controller");
 const leaderBoard = require("./models/leaderboard")
 const { seedLeaderboard } = require("./seed_database")
 const Ayo = require("./controllers/ayoayo.controller");
@@ -62,6 +63,7 @@ app.get(`${baseUrl}/avatar-list`, avatarController.getAvatars)
 app.post(`${baseUrl}/login`, authController.login);
 
 app.post(`${baseUrl}/register`, authController.register);
+
 app.get(`${baseUrl}/leaderboard`, async (req, res) => {
     // const leaderboard = await leaderBoard.find()
     let leaderboard = leaderBoard.find().sort({ score: -1 });
@@ -73,7 +75,12 @@ app.get(`${baseUrl}/leaderboard`, async (req, res) => {
     })
     res.status(200).json({ data: leaderboard, count: leaderboard.length })
 })
-app.get(`${baseUrl}/avatars/:id`, avatarController.getAvatar)
+
+app.get(`${baseUrl}/avatars/:id`, avatarController.getAvatar);
+
+app.get(`${baseUrl}/users/:userId/avatar/:avatarId`, userController.updateUserAvatar);
+
+app.get(`${baseUrl}/users/:id`, userController.getUser);
 
 app.use(notFound);
 app.use(errorHandler);
