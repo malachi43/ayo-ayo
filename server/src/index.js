@@ -78,7 +78,7 @@ app.get(`${baseUrl}/leaderboard`, async (req, res) => {
 
 app.get(`${baseUrl}/avatars/:id`, avatarController.getAvatar);
 
-app.get(`${baseUrl}/users/:userId/avatar/:avatarId`, userController.updateUserAvatar);
+app.get(`${baseUrl}/users/:userId/avatars/:avatarId`, userController.updateUserAvatar);
 
 app.get(`${baseUrl}/users/:id`, userController.getUser);
 
