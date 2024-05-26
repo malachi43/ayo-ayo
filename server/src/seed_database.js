@@ -15,8 +15,7 @@ let avatars = [
 const seedLeaderboardCollection = async () => {
     return await Promise.all(mock_data.map(async (item, index) => {
         const { avatarList } = await AvatarList.findOne()
-
-        return { ...item, id: new mongoose.Types.ObjectId(), stars: generateRandomNumber(5), rank: Number(index + 1), avatar: avatarList[generateRandomNumber(avatars.length, true)] }
+        return { ...item, id: new mongoose.Types.ObjectId(), stars: generateRandomNumber(5), rank: Number(index + 1), avatar: avatarList[generateRandomNumber(avatars.length, true)].avatar_url }
     }))
 }
 
@@ -38,6 +37,7 @@ async function seedAvatarCollection() {
     avatarCollection.avatarList = avatars;
     await avatarCollection.save();
 }
+
 
 module.exports = {
     seedLeaderboard: seedLeaderboardCollection,

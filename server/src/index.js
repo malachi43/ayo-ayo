@@ -73,6 +73,7 @@ app.get(`${baseUrl}/leaderboard`, async (req, res) => {
         data.rank = index + 1;
         return data;
     })
+
     res.status(200).json({ data: leaderboard, count: leaderboard.length })
 })
 
